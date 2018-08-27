@@ -42,7 +42,7 @@ func NewPipeline(processors ...DataProcessor) *Pipeline {
 		if i < len(processors)-1 {
 			dp.Outputs(processors[i+1])
 		}
-		stages[i] = NewPipelineStage([]*dataProcessor{dp}...)
+		stages[i] = NewPipelineStage([]DataProcessor{dp}...)
 	}
 	p.layout, _ = NewPipelineLayout(stages...)
 	return p

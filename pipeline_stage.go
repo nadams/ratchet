@@ -25,8 +25,14 @@ type PipelineStage struct {
 // channel management works behind the scenes.
 //
 // See the ratchet package documentation for more code examples.
-func NewPipelineStage(processors ...*dataProcessor) *PipelineStage {
-	return &PipelineStage{processors}
+func NewPipelineStage(processors ...DataProcessor) *PipelineStage {
+	p := make([]*dataProcessor, len(processors))
+
+	for i, proc := range processors {
+		p[i] = proc.(*dataProcessor)
+	}
+
+	return &PipelineStage{p}
 }
 
 func (s *PipelineStage) hasProcessor(p DataProcessor) bool {
